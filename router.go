@@ -18,9 +18,7 @@ func NewRouter() *Router {
 }
 
 func (r *Router) Register(router gin.IRouter) {
-	router.GET("/metrics", r.metrics)
-}
-
-func (r *Router) metrics(c *gin.Context) {
-	r.promHandler.ServeHTTP(c.Writer, c.Request)
+	router.GET("/metrics", func(c *gin.Context) {
+		r.promHandler.ServeHTTP(c.Writer, c.Request)
+	})
 }
